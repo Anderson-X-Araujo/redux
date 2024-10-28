@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redux - 0207 Organização</title>
+  <script src="./redux.min.js"></script>
+  <script src="./immer.umd.production.min.js"></script>
+</head>
+
+<body>
+  <script type="module">
+    import store from "./store/configureStore.js"
+    import { increase } from "./store/counter.js"
+
+    store.subscribe(() => {
+      console.log('It worked!')
+    })
+
+    store.dispatch(increase())
+  </script>
+</body>
+
+</html>

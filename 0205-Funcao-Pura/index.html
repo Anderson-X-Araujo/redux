@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redux - 0205 Função Pura</title>
+  <script src="./redux.min.js"></script>
+</head>
+
+<body>
+  <div id="box" style="background: blue; height: 50px;"></div>
+
+  <script>
+    // FORMA INCORRETA ->
+    function reducer(state = 0, action) {
+      switch (action.type) {
+        case "MODIFICAR_WIDTH":
+          const box = document.getElementById("box")
+          box.style.width = action.payload + 'px'
+          return action.payload
+
+        default:
+          return state;
+      }
+    }
+    // <- FORMA INCORRETA
+
+    // FORMA CORRETA ->
+    // function reducer(state = 0, action) {
+    //   switch (action.type) {
+    //     case "MODIFICAR_WIDTH":
+    //       return action.payload
+
+    //     default:
+    //       return state;
+    //   }
+    // }
+
+    // function render() {
+    //   const box = document.getElementById("box")
+    //   box.style.width = store.getState() + 'px'
+    // }
+    // <- FORMA CORRETA
+
+    const store = Redux.createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+
+    // FORMA CORRETA ->
+    // store.subscribe(render)
+    // <- FORMA CORRETA
+
+    store.dispatch({ type: "MODIFICAR_WIDTH", payload: 100 })
+
+
+    console.log(store.getState())
+  </script>
+</body>
+
+</html>

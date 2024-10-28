@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redux - 0202 Action</title>
+  <script src="./redux.min.js"></script>
+</head>
+
+<body>
+  <div>
+    <button id="button">Incrementar</button>
+  </div>
+
+  <script>
+    // Constantes (Organização)
+    const INCREMENTAR = "INCREMENTAR"
+    const SOMAR = "SOMAR"
+
+    // Action Creator (Organização)
+    function incrementar() {
+      return { type: INCREMENTAR }
+    }
+
+    // Action Creator (Organização)
+    function somar(payload) {
+      return { type: SOMAR, payload }
+    }
+
+    function reducer(state = 10, action) {
+      if (action.type === SOMAR) {
+        return state + action.payload
+      } else if (action.type === INCREMENTAR) {
+        return state + 1
+      }
+
+      return state
+    }
+
+    const store = Redux.createStore(reducer)
+    let state = store.getState()
+    console.log(state)
+
+    // Envia um objeto com a type payload para o reducer
+    store.dispatch(somar(25))
+    store.dispatch(incrementar())
+
+    state = store.getState()
+    console.log(state)
+
+    const button = document.getElementById('button')
+    button.addEventListener('click', () => {
+      store.dispatch(incrementar())
+      state = store.getState()
+      console.log(state)
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redux - 0206 Imutabilidade</title>
+  <script src="./redux.min.js"></script>
+  <script src="./immer.umd.production.min.js"></script>
+</head>
+
+<body>
+  <script>
+    // Array
+    // const array1 = [0, 1, 2, 3, 4]
+    // const array2 = array1       // <- Assim aponta para o mesmo endeteço de memória de array1
+    // const array3 = [...array1]  // <- Isso é um array novo 'diferente' de array1
+
+    // console.log(array1 === array2)
+    // console.log(array1 === array3)
+
+    /*
+    1. Métodos que mutam uma array:
+    
+    array.copyWithin();
+    array.fill();
+    array.pop();
+    array.push();
+    array.reverse();
+    array.shift();
+    array.sort();
+    array.splice();
+    array.unshift();
+
+    2. Alguns métodos que geram uma array nova:
+    
+     array.concat();
+     array.filter();
+     array.map();
+     array.reduce();
+     array.flat();
+     array.join();
+     */
+
+    //  Objeto
+    // const obj1 = { name: 'Anderson', age: 90 };
+    // const obj2 = obj1;
+    // const obj3 = { ...obj1 };
+    // const obj4 = Object.assign({}, obj1); // cria um novo objeto
+
+    // console.log('Obj I', obj1 === obj2); // true
+    // console.log('Obj II', obj1 === obj3); // false
+    // console.log('Obj III', obj1 === obj4); // false
+
+    // Com Immer
+    // const obj = {
+    //   name: "Anderson",
+    //   age: 18
+    // }
+
+    // const obj_ = immer.produce(obj, (draft) => {
+    //   draft.age = 77
+    // })
+
+    // console.log('obj  ->', obj)
+    // console.log('obj_ ->', obj_)
+
+    // ->
+    const initialState = {
+      name: "Anderson",
+      age: 18
+    }
+
+    // function reducer(state = initialState, action) {
+    //   switch (action.type) {
+    //     case "CHANGE_NAME":
+    //       state.name = action.payload
+
+    //       return { ...state, name: action.payload }
+
+    //     default:
+    //       return state;
+    //   }
+    // }
+
+    const reducer = immer.produce((state, action) => {
+      switch (action.type) {
+        case "CHANGE_NAME":
+          state.name = action.payload
+          break
+
+        case "CHANGE_AGE":
+          state.age = action.payload
+          break
+      }
+    }, initialState)
+
+    const store = Redux.createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+
+    store.dispatch({ type: "CHANGE_NAME", payload: 'Nosredna' })
+    store.dispatch({ type: "CHANGE_NAME", payload: 'John' })
+    store.dispatch({ type: "CHANGE_AGE", payload: 44 })
+    store.dispatch({ type: "CHANGE_NAME", payload: 'Peter' })
+    store.dispatch({ type: "CHANGE_AGE", payload: 77 })
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redux - 0204 Reducer</title>
+  <script src="./redux.min.js"></script>
+</head>
+
+<body>
+  <div>
+    <h1>Total: <span id="total"></span></h1>
+    <button id="button">Incrementar</button>
+    <button id="button2">Somar + 3</button>
+    <button id="open">Abrir</button>
+    <button id="close">Fechar</button>
+  </div>
+
+  <script>
+    // Constantes (Organização)
+    const INCREMENTAR = "INCREMENTAR"
+    const SOMAR = "SOMAR"
+
+    // Action Creator (Organização)
+    function incrementar() {
+      return { type: INCREMENTAR }
+    }
+
+    // Action Creator (Organização)
+    function somar(payload) {
+      return { type: SOMAR, payload }
+    }
+
+    function counter(state = 0, action) {
+      switch (action.type) {
+        case INCREMENTAR:
+          return state + 1
+
+        case SOMAR:
+          return state + action.payload
+
+        default:
+          return state;
+      }
+    }
+
+    function modal(state = false, action) {
+      switch (action.type) {
+        case 'ABRIR':
+          return true
+
+        case 'FECHAR':
+          return false
+
+        default:
+          return state;
+      }
+    }
+
+    // combineReducers
+    const reducer = Redux.combineReducers({ counter, modal })
+
+    // createStore
+    const store = Redux.createStore(reducer)
+
+    function render() {
+      const { counter, modal } = store.getState()
+
+      const total = document.getElementById('total')
+      total.innerText = counter
+
+      if (modal) {
+        total.style.color = 'red'
+      } else {
+        total.style.color = 'blue'
+      }
+    }
+
+    render()
+    store.subscribe(render)
+
+    const button = document.getElementById('button')
+    button.addEventListener('click', () => store.dispatch(incrementar()))
+
+    const button2 = document.getElementById('button2')
+    button2.addEventListener('click', () => store.dispatch(somar(3)))
+
+    const close = document.getElementById('close')
+    close.addEventListener('click', () => store.dispatch({ type: 'ABRIR' }))
+
+    const open = document.getElementById('open')
+    open.addEventListener('click', () => store.dispatch({ type: 'FECHAR' }))
+  </script>
+</body>
+
+</html>

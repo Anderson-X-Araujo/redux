@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redux - 0208 Desafio</title>
+  <script src="./redux.min.js"></script>
+  <script src="./immer.umd.production.min.js"></script>
+
+  <style>
+    body {
+      background-color: #111;
+      color: #fff;
+    }
+
+    h1 {
+      font-size: 18px;
+    }
+
+    button {
+      all: unset;
+      border: none;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 10px 20px;
+      cursor: pointer;
+      box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24);
+      transition: 0.2s all;
+    }
+
+    button:active {
+      transform: scale(0.95);
+      box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+    }
+
+    button#decrease {
+      background-color: #bb0000;
+    }
+
+    button#increase {
+      background-color: #0000bb;
+    }
+  </style>
+</head>
+
+<body>
+  <h1 id="student"></h1>
+  <h1 id="classes"></h1>
+
+  <div>
+    <button id="decrease">-</button>
+    <button id="increase">+</button>
+  </div>
+
+  <script type="module">
+    import store from "./store/configureStore.js"
+    import { completeClass, completeCourse, resetCourse } from "./store/classes.js"
+    import { increaseTime, decreaseTime, modifyEmail } from "./store/student.js"
+
+    // Render
+    function render() {
+      const { student, classes } = store.getState()
+
+      const studentElement = document.getElementById("student")
+      const classesElement = document.getElementById("classes")
+
+      studentElement.innerHTML = `<p><span>Name: </span>${student.name}</p><p><span>Email: </span>${student.email}</p><p><span>Days Remaining: </span>${student.daysRemaining}</p>`
+
+      classesElement.innerHTML = `<p>Total Classes Completed: <span>${classes.filter((item) => item.complete === true).length}</span></p>`
+    }
+
+    // Renderização do Estado Inicial
+    render()
+
+    // Subscribes
+    store.subscribe(render)
+    store.subscribe(() => console.log('Todas as alterações disparadas por "store.dispatch(...)" automaticamente chamam todas as funções registradas em "store.subscribe(...)"'))
+
+    // Dispatches
+    store.dispatch(resetCourse());
+    store.dispatch(completeClass(3));
+    store.dispatch(completeCourse());
+    store.dispatch(decreaseTime());
+    store.dispatch(increaseTime());
+    store.dispatch(increaseTime());
+    store.dispatch(modifyEmail('john.doe@mail.com'));
+
+    // Event Listeners
+    const increaseBtn = document.getElementById("increase")
+    increaseBtn.addEventListener('click', () => store.dispatch(increaseTime()))
+
+    const decreaseBtn = document.getElementById("decrease")
+    decreaseBtn.addEventListener('click', () => store.dispatch(decreaseTime()))
+  </script>
+</body>
+
+</html>
