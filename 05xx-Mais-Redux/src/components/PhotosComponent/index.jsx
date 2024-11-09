@@ -13,13 +13,13 @@ const PhotosComponent = () => {
 
   if (!data) return null;
   return (
-    <div>
+    <ul>
       {data.map((photo) => (
         <li key={photo.id}>
           {photo.title} | {photo.peso} pounds
         </li>
       ))}
-    </div>
+    </ul>
   );
 };
 

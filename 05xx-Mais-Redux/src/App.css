@@ -1,0 +1,30 @@
+table,
+input,
+label,
+li,
+button {
+  font-size: 1rem;
+  font-family: monospace;
+  margin-bottom: 0.5rem;
+}
+
+ul {
+  margin-top: 10px;
+}
+
+td {
+  padding: 0.3rem;
+}
+
+th {
+  padding-right: 1rem;
+  text-align: left;
+}
+
+tr:nth-child(even) {
+  background: #e1e1e1;
+}
+
+input[type="number"] {
+  display: block;
+}
