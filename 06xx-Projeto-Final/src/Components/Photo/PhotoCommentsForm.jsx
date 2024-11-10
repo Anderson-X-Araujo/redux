@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import Enviar from "../../Assets/enviar.svg?react";
 import useFetch from "../../Hooks/useFetch";
 import Error from "../Helper/Error";
@@ -6,7 +7,7 @@ import { COMMENT_POST } from "../../Api";
 import styles from "./PhotoCommentsForm.module.css";
 
 const PhotoCommentsForm = ({ id, setComments, single }) => {
-  const [comment, setComment] = React.useState("");
+  const [comment, setComment] = useState("");
   const { request, error } = useFetch();
 
   async function handleSubmit(event) {

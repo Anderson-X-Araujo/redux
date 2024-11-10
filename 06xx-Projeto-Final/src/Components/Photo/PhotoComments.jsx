@@ -1,15 +1,15 @@
 /* eslint-disable react/prop-types */
-import React from "react";
+import { useEffect, useRef, useState } from "react";
 import PhotoCommentsForm from "./PhotoCommentsForm";
 import { useSelector } from "react-redux";
 import styles from "./PhotoComments.module.css";
 
 const PhotoComments = (props) => {
-  const [comments, setComments] = React.useState(() => props.comments);
-  const commentsSection = React.useRef(null);
+  const [comments, setComments] = useState(() => props.comments);
+  const commentsSection = useRef(null);
   const { data } = useSelector((state) => state.user);
 
-  React.useEffect(() => {
+  useEffect(() => {
     commentsSection.current.scrollTop = commentsSection.current.scrollHeight;
   }, [comments]);
 

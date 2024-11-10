@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Error from "../Helper/Error";
 import Loading from "../Helper/Loading";
@@ -12,7 +12,7 @@ const Photo = () => {
   const { data, loading, error } = useSelector((state) => state.photo);
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(fetchPhoto(id));
   }, [dispatch, id]);
 

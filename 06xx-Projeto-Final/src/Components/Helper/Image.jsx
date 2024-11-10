@@ -1,8 +1,9 @@
-import React from 'react';
-import styles from './Image.module.css';
+/* eslint-disable react/prop-types */
+import { useState } from "react";
+import styles from "./Image.module.css";
 
 const Image = ({ alt, ...props }) => {
-  const [skeleton, setSkeleton] = React.useState(true);
+  const [skeleton, setSkeleton] = useState(true);
 
   function handleLoad({ target }) {
     setSkeleton(false);

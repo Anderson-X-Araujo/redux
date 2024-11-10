@@ -1,12 +1,13 @@
-import React from 'react';
-import styles from './UserStatsGraphs.module.css';
-import { VictoryPie, VictoryChart, VictoryBar } from 'victory';
+/* eslint-disable react/prop-types */
+import { useEffect, useState } from "react";
+import styles from "./UserStatsGraphs.module.css";
+import { VictoryPie, VictoryChart, VictoryBar } from "victory";
 
 const UserStatsGraphs = ({ data }) => {
-  const [graph, setGraph] = React.useState([]);
-  const [total, setTotal] = React.useState(0);
+  const [graph, setGraph] = useState([]);
+  const [total, setTotal] = useState(0);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (data.length) {
       const graphData = data.map((item) => {
         return {
@@ -35,12 +36,12 @@ const UserStatsGraphs = ({ data }) => {
           style={{
             data: {
               fillOpacity: 0.9,
-              stroke: '#fff',
+              stroke: "#fff",
               strokeWidth: 2,
             },
             labels: {
               fontSize: 14,
-              fill: '#333',
+              fill: "#333",
             },
           }}
         />

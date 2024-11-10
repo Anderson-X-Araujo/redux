@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from "react";
+import { useEffect } from "react";
 import styles from "./FeedModal.module.css";
 import Error from "../Helper/Error";
 import Loading from "../Helper/Loading";
@@ -11,7 +11,7 @@ const FeedModal = ({ photo, setModalPhoto }) => {
   const { data, loading, error } = useSelector((state) => state.photo);
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(fetchPhoto(photo?.id));
   }, [dispatch, photo]);
 

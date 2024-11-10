@@ -1,10 +1,10 @@
-import React from 'react';
-import styles from './Loading.module.css';
+import { useEffect, useState } from "react";
+import styles from "./Loading.module.css";
 
 const Loading = () => {
-  const [step, setStep] = React.useState(0);
+  const [step, setStep] = useState(0);
 
-  React.useEffect(() => {
+  useEffect(() => {
     function updateStep() {
       setStep((step) => {
         if (step < 3) return step + 1;
@@ -19,7 +19,7 @@ const Loading = () => {
 
   function displayStep(i) {
     return {
-      display: step === i ? 'block' : 'none',
+      display: step === i ? "block" : "none",
     };
   }
 

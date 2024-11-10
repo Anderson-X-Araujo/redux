@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import MinhasFotos from "../../Assets/feed.svg?react";
 import Estatisticas from "../../Assets/estatisticas.svg?react";
@@ -12,10 +12,10 @@ import { userLogout } from "../../store/user";
 const UserHeaderNav = () => {
   const dispatch = useDispatch();
   const mobile = useMedia("(max-width: 40rem)");
-  const [mobileMenu, setMobileMenu] = React.useState(false);
+  const [mobileMenu, setMobileMenu] = useState(false);
 
   const { pathname } = useLocation();
-  React.useEffect(() => {
+  useEffect(() => {
     setMobileMenu(false);
   }, [pathname]);
 
